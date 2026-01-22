@@ -8,7 +8,9 @@ from collections import Counter
 from sklearn.metrics import auc as sk_auc
 from sklearn.metrics import mean_absolute_error, mean_squared_error
 
-from .base import EvaluatorType, AbstractMetric, TopkMetric, LossMetric
+from .utils import _binary_clf_curve
+from .base_metric import AbstractMetric, TopkMetric, LossMetric
+from ..utils import EvaluatorType
 
 # TopK Metrics
 
@@ -30,13 +32,13 @@ class Hit(TopkMetric):
     def __init__(self, config):
         super().__init__(config)
 
-    def calculate_metric(self, data_object):
-        pos_index, _ = self.used_info(data_object)
+    def calculate_metric(self, dataobject):
+        pos_index, _ = self.used_info(dataobject)
         result = self.metric_info(pos_index)
         metric_dict = self.topk_result('hit', result)
         return metric_dict
 
-    def metric_info(self, pos_index, pos_len=None):
+    def metric_info(self, pos_index):
         result = np.cumsum(pos_index, axis=1)
         return (result > 0).astype(int)
 
@@ -56,13 +58,13 @@ class MRR(TopkMetric):
     def __init__(self, config):
         super().__init__(config)
 
-    def calculate_metric(self, data_object):
-        pos_index, _ = self.used_info(data_object)
+    def calculate_metric(self, dataobject):
+        pos_index, _ = self.used_info(dataobject)
         result = self.metric_info(pos_index)
         metric_dict = self.topk_result('mrr', result)
         return metric_dict
 
-    def metric_info(self, pos_index, pos_len=None):
+    def metric_info(self, pos_index):
         idxs = pos_index.argmax(axis=1)
         result = np.zeros_like(pos_index, dtype=np.float64)
         for row, idx in enumerate(idxs):
@@ -94,14 +96,16 @@ class MAP(TopkMetric):
         super().__init__(config)
         self.config = config
 
-    def calculate_metric(self, data_object):
-        pos_index, pos_len = self.used_info(data_object)
+    def calculate_metric(self, dataobject):
+        pos_index, pos_len = self.used_info(dataobject)
         result = self.metric_info(pos_index, pos_len)
         metric_dict = self.topk_result('map', result)
         return metric_dict
 
-    def metric_info(self, pos_index, pos_len=None):
+    def metric_info(self, pos_index, pos_len):
+        # topk精确率
         pre = pos_index.cumsum(axis=1) / np.arange(1, pos_index.shape[1] + 1)
+        # topk精确率求和
         sum_pre = np.cumsum(pre * pos_index.astype(np.float64), axis=1)
         len_rank = np.full_like(pos_len, pos_index.shape[1])
         actual_len = np.where(pos_len > len_rank, len_rank, pos_len)
@@ -405,7 +409,7 @@ class LogLoss(LossMetric):
 
     def metric_info(self, preds, trues):
         eps = 1e-15
-        preds = np.float64(preds)
+        preds = np.float6464(preds)
         preds = np.clip(preds, eps, 1 - eps)
         loss = np.sum(-trues * np.log(preds) - (1 - trues) * np.log(1 - preds))
         return loss / len(preds)
@@ -720,35 +724,3 @@ class TailPercentage(AbstractMetric):
             key = '{}@{}'.format(metric, k)
             metric_dict[key] = round(avg_result[k - 1], self.decimal_place)
         return metric_dict
-
-
-def _binary_clf_curve(trues, preds):
-    """Calculate true and false positives per binary classification threshold
-
-    Args:
-        trues (numpy.ndarray): the true scores' list
-        preds (numpy.ndarray): the predict scores' list
-
-    Returns:
-        fps (numpy.ndarray): A count of false positives, at index i being the number of negative
-        samples assigned a score >= thresholds[i]
-        preds (numpy.ndarray): An increasing count of true positives, at index i being the number
-        of positive samples assigned a score >= thresholds[i].
-
-    Note:
-        To improve efficiency, we referred to the source code(which is available at sklearn.metrics.roc_curve)
-        in SkLearn and made some optimizations.
-
-    """
-    trues = (trues == 1)
-
-    desc_idxs = np.argsort(preds)[::-1]
-    preds = preds[desc_idxs]
-    trues = trues[desc_idxs]
-
-    unique_val_idxs = np.where(np.diff(preds))[0]
-    threshold_idxs = np.r_[unique_val_idxs, trues.size - 1]
-
-    tps = np.cumsum(trues)[threshold_idxs]
-    fps = 1 + threshold_idxs - tps
-    return fps, tps

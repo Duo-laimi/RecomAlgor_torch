@@ -9,8 +9,9 @@ import json
 import torch
 from logging import getLogger
 from enum import Enum
-
-from .argument_list import general_arguments, training_arguments, evaluation_arguments, dataset_arguments
+from ..evaluator import metric_types, smaller_metrics
+from ..utils import get_model, \
+    general_arguments, training_arguments, evaluation_arguments, dataset_arguments, set_color
 
 
 class Config(object):
