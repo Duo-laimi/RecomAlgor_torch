@@ -48,7 +48,7 @@ def cluster_info(module_name):
     return smaller_m, m_info, m_types, m_dict
 
 
-metric_module_name = 'REC.evaluator.metrics'
+metric_module_name = 'evaluator.metrics'
 smaller_metrics, metric_information, metric_types, metrics_dict = cluster_info(metric_module_name)
 
 

@@ -45,7 +45,7 @@ def bulid_dataloader(config, dataload):
     model_name = config['model']
     dataload.build()
 
-    dataset_module = importlib.import_module('REC.data.dataset')
+    dataset_module = importlib.import_module('data.dataset')
     train_set_name, test_set_name, collate_fn_name = dataset_dict[model_name]
 
     if isinstance(train_set_name, tuple):

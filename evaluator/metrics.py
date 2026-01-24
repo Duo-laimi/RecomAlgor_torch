@@ -10,7 +10,7 @@ from sklearn.metrics import mean_absolute_error, mean_squared_error
 
 from .utils import _binary_clf_curve
 from .base_metric import AbstractMetric, TopkMetric, LossMetric
-from ..utils import EvaluatorType
+from utils import EvaluatorType
 
 # TopK Metrics
 

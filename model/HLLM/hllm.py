@@ -21,12 +21,12 @@ from transformers import AutoConfig, AutoModelForCausalLM
 from logging import getLogger
 
 from .modeling_mistral import MistralForCausalLM
-from ...utils.enum_type import InputType
-from ...model.basemodel import BaseModel, all_gather
-from ...model.HLLM.modeling_llama import LlamaForCausalLM
+from utils.enum_type import InputType
+from model.basemodel import BaseModel, all_gather
+from model.HLLM.modeling_llama import LlamaForCausalLM
 # from ...model.HLLM.modeling_mistral import MistralForCausalLM
-from ...model.HLLM.modeling_bert import BertModel
-from ...model.HLLM.baichuan.modeling_baichuan import BaichuanForCausalLM
+from model.HLLM.modeling_bert import BertModel
+from model.HLLM.baichuan.modeling_baichuan import BaichuanForCausalLM
 
 
 class HLLM(BaseModel):

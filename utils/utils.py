@@ -40,12 +40,12 @@ def get_model(model_name):
     model_file_name = model_name.lower()
     model_module = None
 
-    module_path = '.'.join(['REC.model.IDNet', model_file_name])
+    module_path = '.'.join(['model.IDNet', model_file_name])
     if importlib.util.find_spec(module_path, __name__):
         model_module = importlib.import_module(module_path, __name__)
 
     if model_module is None:
-        module_path = '.'.join(['REC.model.HLLM', model_file_name])
+        module_path = '.'.join(['model.HLLM', model_file_name])
 
     if importlib.util.find_spec(module_path, __name__):
         model_module = importlib.import_module(module_path, __name__)

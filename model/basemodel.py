@@ -6,7 +6,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-from ..utils import set_color
+from utils import set_color
 
 
 def all_gather(data,

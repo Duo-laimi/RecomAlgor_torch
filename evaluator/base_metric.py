@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: MIT
 
 import torch
-from ..utils import EvaluatorType
+from utils import EvaluatorType
 
 
 class AbstractMetric(object):

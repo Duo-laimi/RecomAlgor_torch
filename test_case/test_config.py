@@ -1,6 +1,12 @@
 
 
 config_list = [
-    "config/HLLM.yaml",
-    "config/overall/LLM_deepspeed.yaml"
+    "../assets/HLLM/HLLM.yaml",
+    "../assets/overall/LLM_deepspeed.yaml"
 ]
+
+from config.configurator import Config
+
+cfg = Config(config_list)
+
+print(cfg)

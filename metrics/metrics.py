@@ -104,7 +104,7 @@ class MAP(TopkMetric):
         pre = pos_index.cumsum(axis=1) / np.arange(1, pos_index.shape[1] + 1)
         sum_pre = np.cumsum(pre * pos_index.astype(np.float64), axis=1)
         len_rank = np.full_like(pos_len, pos_index.shape[1])
-        actual_len = np.where(pos_len > len_rank, len_rank, pos_len)
+        actual_len = np.where(pos_len > len_rank, len_rank, pos_len) # 实际长度不能超过k
         result = np.zeros_like(pos_index, dtype=np.float64)
         for row, lens in enumerate(actual_len):
             ranges = np.arange(1, pos_index.shape[1] + 1)
