@@ -1,14 +1,12 @@
 # Copyright (c) 2024 westlake-repl
 # SPDX-License-Identifier: MIT
 
-import re
-import os
-import sys
-import yaml
 import json
-import torch
-from logging import getLogger
+import re
 from enum import Enum
+
+import yaml
+
 from evaluator import metric_types, smaller_metrics
 from utils import get_model, \
     general_arguments, training_arguments, evaluation_arguments, dataset_arguments, set_color
