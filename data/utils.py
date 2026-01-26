@@ -13,8 +13,8 @@ import importlib
 import os
 import pickle
 from logging import getLogger
-from ..data.dataset import *
-from ..utils import set_color
+from data.dataset import *
+from utils import set_color
 from functools import partial
 from .dataload import Data
 import torch

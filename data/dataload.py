@@ -19,8 +19,8 @@ import numpy as np
 import pandas as pd
 import torch
 
-from ..utils import set_color
-from ..utils.enum_type import InputType
+from utils import set_color
+from utils.enum_type import InputType
 from torch_geometric.utils import degree
 
 

@@ -11,10 +11,10 @@ wandb_project: 'REC'
 MAX_ITEM_LIST_LENGTH: 50
 MAX_TEXT_LENGTH: 64
 
-data_path: /mnt/d/aistudy/dataset/recommend/hllm/dataset                       # dataset path
+data_path: /mnt/workspace/dataset/hllm/dataset                       # dataset path
 dataset: Pixel200K                        # dataset name
 
-text_path: /mnt/d/aistudy/dataset/recommend/hllm/Pixel200K.csv # Use absolute path
+text_path: /mnt/workspace/dataset/hllm/information/Pixel200K.csv # Use absolute path
 text_keys: ['title', 'tag', 'description']
 
 item_prompt: 'Compress the following sentence into embedding: '
