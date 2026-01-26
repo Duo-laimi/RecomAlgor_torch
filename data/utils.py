@@ -63,7 +63,7 @@ def bulid_dataloader(config, dataload):
         set_color(f'[{config["train_batch_size"]}]', 'yellow')
     )
 
-    num_workers = 11
+    num_workers = 8
     rank = torch.distributed.get_rank()
     seed = torch.initial_seed()
 
