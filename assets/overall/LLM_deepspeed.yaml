@@ -12,6 +12,7 @@ MAX_ITEM_LIST_LENGTH: 50
 MAX_TEXT_LENGTH: 64
 
 data_path: /mnt/workspace/dataset/hllm/dataset                       # dataset path
+# {Pixel200K / Pixel1M / Pixel8M / amazon_books}
 dataset: Pixel200K                        # dataset name
 
 text_path: /mnt/workspace/dataset/hllm/information/Pixel200K.csv # Use absolute path
@@ -24,7 +25,7 @@ loss: nce
 
 # training settings
 epochs: 10
-train_batch_size: 8
+train_batch_size: 2 # 8
 optim_args: {
   learning_rate: 1e-4,
   weight_decay: 0.01

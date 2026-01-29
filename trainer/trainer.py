@@ -20,13 +20,13 @@ import torch.distributed as dist
 from tqdm import tqdm
 import deepspeed
 
-from ..data.dataset import BatchTextDataset
-from ..data.dataset.collate_fn import customize_rmpad_collate
+from data.dataset import BatchTextDataset
+from data.dataset.collate_fn import customize_rmpad_collate
 from torch.utils.data import DataLoader
-from ..evaluator import Evaluator, Collector
-from ..utils import ensure_dir, get_local_time, early_stopping, calculate_valid_score, dict2str, \
+from evaluator import Evaluator, Collector
+from utils import ensure_dir, get_local_time, early_stopping, calculate_valid_score, dict2str, \
     get_tensorboard, set_color, get_gpu_usage, WandbLogger
-from ..utils.lr_scheduler import *
+from utils.lr_scheduler import *
 
 import lightning as L
 from lightning.fabric.strategies import DeepSpeedStrategy, DDPStrategy

@@ -108,6 +108,7 @@ class TextSEQTrainDataset(Dataset):
 
         self.text_path = config['text_path']
         self.text_keys = config['text_keys']
+        # , trust_remote_code=True
         self.tokenizer = AutoTokenizer.from_pretrained(config['item_pretrain_dir'], trust_remote_code=True)
         # self.pad_id = self.tokenizer.pad_token_id
         # assert self.pad_id is not None, f"pad_token_id can't be {self.pad_id}"

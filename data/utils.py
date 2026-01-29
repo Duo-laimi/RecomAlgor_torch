@@ -66,6 +66,8 @@ def bulid_dataloader(config, dataload):
     num_workers = 8
     rank = torch.distributed.get_rank()
     seed = torch.initial_seed()
+    print(seed)
+    # seed = config.parameters['General']["seed"]
 
     init_fn = partial(
         worker_init_fn, num_workers=num_workers, rank=rank,
