@@ -8,8 +8,8 @@ show_progress: True
 
 log_wandb: False
 wandb_project: 'REC'
-MAX_ITEM_LIST_LENGTH: 50
-MAX_TEXT_LENGTH: 64
+MAX_ITEM_LIST_LENGTH: 25 # 50
+MAX_TEXT_LENGTH: 32 # 64
 
 data_path: /mnt/workspace/dataset/hllm/dataset                       # dataset path
 # {Pixel200K / Pixel1M / Pixel8M / amazon_books}
